@@ -505,8 +505,7 @@ if [ -f chromeos ]; then
 fi
 
 ui_print "- Flashing new boot image"
-[ ! -L $BOOTIMAGE ] && dd if=/dev/zero of=$BOOTIMAGE bs=4096 2>/dev/null
-dd if=new-boot.img of=$BOOTIMAGE bs=4096
+[ -b $BOOTIMAGE ] && cat new-boot.img /dev/zero | dd of=$BOOTIMAGE bs=4096 2>/dev/null || dd if=new-boot.img of=$BOOTIMAGE bs=4096
 
 cd /
 
